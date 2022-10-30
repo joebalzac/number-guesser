@@ -9,24 +9,25 @@
 // Game values
 let min = 1,
 	max = 10,
-	winningNum = Math.floor(Math.random() * 10 + 1),
+	winningNum = Math.floor(Math.random() * max + min),
 	guessesLeft = 3;
 
 // UI Elements
 const game = document.querySelector('#game'),
 	minNum = document.querySelector('.min-num'),
 	maxNum = document.querySelector('.max-num'),
-	guessBtn = document.querySelector('#guess-btn'),
 	guessInput = document.querySelector('#guess-input'),
-	message = document.querySelector('.message');
+	guessBtn = document.querySelector('#guess-btn'),
+	message = document.querySelector('.message'),
+	header = document.querySelector('.header');
 
 // Assign UI min and max
 minNum.textContent = min;
 maxNum.textContent = max;
 
 // Play Again
-game.addEventListener('mouseup', () => {
-	if (guessBtn.value === 'Play Again') {
+guessBtn.addEventListener('mousedown', (e) => {
+	if (e.target.className === 'play-again') {
 		window.location.reload();
 	}
 });
@@ -34,46 +35,64 @@ game.addEventListener('mouseup', () => {
 // Guess Button Event Listener
 guessBtn.addEventListener('click', () => {
 	let guess = parseInt(guessInput.value);
-	console.log(guess);
 
+	// Validate
 	if (isNaN(guess) || guess < min || guess > max) {
 		setMessage(`Please enter a number between ${min} and ${max}`, 'red');
 	}
 
 	if (guess === winningNum) {
-		gameOver(
-			true,
-			`${winningNum} is correct! You are a winner! (but still a fucking loser)`
-		);
+		gameOver(true, `${winningNum} is the winning number. You Won!`);
 	} else {
-		// Wrong Number
 		guessesLeft -= 1;
-		setMessage(
-			`${guess} is the wrong number, guess again, you have ${guessesLeft} guesses left`,
-			'red'
-		);
 
 		if (guessesLeft === 0) {
 			gameOver(
 				false,
-				`Game Over, You Lost! The Correct number was ${winningNum}`
+				`Game Over! You Lost! The winning number was ${winningNum}`
 			);
+		} else {
+			// Game continues = answer wrong
+			guessInput.style.borderColor = 'red';
 
-			guessBtn.value = 'Play Again';
-			guessBtn.style.background = 'red';
-			guessBtn.style.color = 'white';
+			guessInput.value = '';
+
+			setMessage(
+				`${guess} is not correct, ${guessesLeft} guesses left`,
+				'red'
+			);
 		}
 	}
 });
 
+// Check if won
+
+// Wrong number
+
+// Change border color
+
+// Clear Input
+
+// Tell user its the wrong number
+
+// Game Over
 const gameOver = (won, msg) => {
-	let color;
 	won === true ? (color = 'green') : (color = 'red');
+	won === true
+		? (header.textContent = 'Congratulations!!!')
+		: (header.textContent = 'Go to HELL LOSER!');
 	guessInput.disabled = true;
 	guessInput.style.borderColor = color;
 	message.style.color = color;
+	// Set Message
 	setMessage(msg);
+
+	// Play Again?
+	guessBtn.value = 'Play Again';
+	guessBtn.className = 'play-again';
 };
+
+console.log(gameOver);
 
 // Set Message
 const setMessage = (msg, color) => {

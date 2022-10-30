@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="/dist/output.css" rel="stylesheet" />
+		<title>Number Guesser</title>
+
+		<style>
+			.play-again {
+				padding-left: 24px;
+				padding-right: 24px;
+				padding-top: 12px;
+				padding-bottom: 12px;
+				border-radius: 6px;
+				background-color: red;
+			}
+		</style>
+	</head>
+	<body class="bg-slate-900 flex justify-center mt-20 mx-auto h-screen">
+		<div>
+			<div
+				class="header text-5xl text-sky-300 font-black text-amber-400 my-6"
+			></div>
+			<h1 class="text-3xl text-white mb-6">Number Guesser</h1>
+			<div id="game">
+				<p class="mb-6 text-sky-500">
+					Guess a number between <span class="min-num"></span> and
+					<span class="max-num"></span>
+				</p>
+				<input
+					class="h-10 p-6 rounded-md mr-6 mb-4"
+					id="guess-input"
+					type="number"
+					placeholder="Enter your guess"
+				/>
+				<input
+					class="py-3 px-6 rounded-md bg-sky-500 cursor-pointer hover:bg-sky-700"
+					type="submit"
+					value="Submit"
+					id="guess-btn"
+				/>
+				<p class="message"></p>
+			</div>
+		</div>
+
+		<script src="/app.js"></script>
+	</body>
+</html>
