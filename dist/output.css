@@ -591,10 +591,6 @@ video {
 	padding-right: 1.5rem;
 }
 
-.text-center {
-	text-align: center;
-}
-
 .text-5xl {
 	font-size: 3rem;
 	line-height: 1;
@@ -614,6 +610,11 @@ video {
 	color: rgb(125 211 252 / var(--tw-text-opacity));
 }
 
+.text-amber-400 {
+	--tw-text-opacity: 1;
+	color: rgb(251 191 36 / var(--tw-text-opacity));
+}
+
 .text-white {
 	--tw-text-opacity: 1;
 	color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -622,11 +623,6 @@ video {
 .text-sky-500 {
 	--tw-text-opacity: 1;
 	color: rgb(14 165 233 / var(--tw-text-opacity));
-}
-
-.text-amber-400 {
-	--tw-text-opacity: 1;
-	color: rgb(251 191 36 / var(--tw-text-opacity));
 }
 
 .hover\:bg-sky-700:hover {

@@ -26,7 +26,7 @@ minNum.textContent = min;
 maxNum.textContent = max;
 
 // Play Again
-guessBtn.addEventListener('mousedown', (e) => {
+guessBtn.addEventListener('mouseup', (e) => {
 	if (e.target.className === 'play-again') {
 		window.location.reload();
 	}
@@ -34,70 +34,56 @@ guessBtn.addEventListener('mousedown', (e) => {
 
 // Guess Button Event Listener
 guessBtn.addEventListener('click', () => {
+	// Validate
 	let guess = parseInt(guessInput.value);
 
-	// Validate
 	if (isNaN(guess) || guess < min || guess > max) {
 		setMessage(`Please enter a number between ${min} and ${max}`, 'red');
 	}
 
 	if (guess === winningNum) {
-		gameOver(true, `${winningNum} is the winning number. You Won!`);
+		gameOver(true, `${winningNum} is correct! You won!!`);
 	} else {
 		guessesLeft -= 1;
 
 		if (guessesLeft === 0) {
+			gameOver(false, `Game Over!`);
+		} else {
+			guessInput.value = '';
 			gameOver(
 				false,
-				`Game Over! You Lost! The winning number was ${winningNum}`
-			);
-		} else {
-			// Game continues = answer wrong
-			guessInput.style.borderColor = 'red';
-
-			guessInput.value = '';
-
-			setMessage(
-				`${guess} is not correct, ${guessesLeft} guesses left`,
-				'red'
+				`${guess} is the wrong number, you have ${guessesLeft} guesses left`
 			);
 		}
 	}
+
+	// Game continues = answer wrong
+	// Check if won
+	// Wrong number
+	// Change border color
+	// Clear Input
+	// Tell user its the wrong number
 });
-
-// Check if won
-
-// Wrong number
-
-// Change border color
-
-// Clear Input
-
-// Tell user its the wrong number
 
 // Game Over
 const gameOver = (won, msg) => {
 	won === true ? (color = 'green') : (color = 'red');
-	won === true
-		? (header.textContent = 'Congratulations!!!')
-		: (header.textContent = 'Go to HELL LOSER!');
+	won === true ? (header.textContent = 'Congratulations!!!') : 'LOSER!!!';
 	guessInput.disabled = true;
 	guessInput.style.borderColor = color;
 	message.style.color = color;
-	// Set Message
-	setMessage(msg);
-
-	// Play Again?
+	message.style.fontStyle = 'bold';
 	guessBtn.value = 'Play Again';
 	guessBtn.className = 'play-again';
+	setMessage(msg);
 };
-
-console.log(gameOver);
 
 // Set Message
 const setMessage = (msg, color) => {
-	message.style.color = color;
 	message.textContent = msg;
+	message.style.color = color;
 };
+
+// Set Message
 
 console.log(winningNum);
